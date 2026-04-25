@@ -3,24 +3,21 @@
 use App\Http\Controllers\BackOffice\BackOfficeController;
 use App\Http\Controllers\BackOffice\LoginBackOfficeController;
 use App\Http\Controllers\BackOffice\LogoutBackOfficeController;
-use App\Http\Controllers\BackOffice\ProductBackOfficeController;
+use App\Http\Controllers\ContactsController;
+use App\Http\Controllers\FaqController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ShoppingCartController;
+use App\Http\Controllers\WelcomeController;
 use App\Http\Middleware\AuthenticateBackOffice;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
-Route::get('/', [\App\Http\Controllers\WelcomeController::class, 'index']);
+Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
+Route::get('/produto/{slug}', [ProductController::class, 'show'])->name('product.show');
+Route::get('/login', [\App\Http\Controllers\LoginController::class, 'create'])->name('login');
+Route::get('/contactos', [ContactsController::class, 'create'])->name('contacts');
+Route::get('/faq', [FaqController::class, 'create'])->name('faq');
+Route::get('/carinho-de-compras', [ShoppingCartController::class, 'create'])->name('shopping-cart');
 
-Route::get('/store', function () {
-    return view('welcome');
-});
-
-Route::get('/contactos', function () {
-    return view('welcome');
-})->name('contacts');
-
-Route::get('/faq', function () {
-    return view('welcome');
-})->name('faq');
 
 //BACKOFFICE
 Route::get('/backoffice/login', [LoginBackOfficeController::class, 'create'])->name('backoffice.login');

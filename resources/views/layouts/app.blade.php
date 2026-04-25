@@ -21,9 +21,9 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     @endif
 </head>
-<body class="bg-[#FDFDFC] dark:bg-[#0a0a0a]  text-[#1b1b18] relative mt-16">
+<body class="bg-red-50 text-[#1b1b18] relative mt-16 min-h-full">
 
-<main class="container mx-auto">
+<main class="container mx-auto h-screen">
     @if(session('success'))
         <x-ui.alert type="success" :message="session('success')"/>
     @endif

@@ -3,12 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Product extends Model
 {
     protected $fillable = ['name', 'price', 'old_price'];
 
-    public function files(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function files(): HasMany
     {
         return $this->hasMany(File::class);
     }
