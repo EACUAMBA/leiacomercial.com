@@ -19,3 +19,7 @@
     @apply h-screen
 }
 
+[x-cloak] {
+    display: none !important;
+}
+

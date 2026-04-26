@@ -1,6 +1,6 @@
 @php use Illuminate\Support\Facades\Auth; @endphp
-<header class="fixed left-0 top-0 right-0 bg-white h-16 flex items-center justify-center px-2"
-        x-data="{ mobileMenuOpen: false }">
+<header class="fixed left-0 top-0 right-0 bg-white h-16 flex items-center justify-center"
+        x-data="{ mobileMenuOpen: false, searchBarOpen:false }">
     {{--    mobile--}}
     <div class="flex items-center justify-between w-full container  mx-auto">
         <div class="" x-show="!mobileMenuOpen" @click="mobileMenuOpen = !mobileMenuOpen">
@@ -12,15 +12,31 @@
                class=" size-10 p-1"></i>
         </div>
 
-        <a href="{{ route('welcome') }}">
+        <a href="{{ route('welcome') }}" >
             <img src="{{ asset('images/logotipo-text-for-light.png') }}" alt="Logotipo da Leia Comercial em texto."
                  class="w-50">
         </a>
 
-        <a href="{{ route('shopping-cart') }}" class=""><i data-lucide="shopping-cart" class=" size-10 p-1"></i></a>
+        <a href="{{ route('shopping-cart') }}" class="hidden"><i data-lucide="shopping-cart" class=" size-10 p-1"></i></a>
 
-        <nav x-show="mobileMenuOpen" @click.outside="mobileMenuOpen = false" x-transition x-transition.scale.origin.top
-             class="fixed left-0 top-16 right-0 shadow-md bg-white flex flex-col gap-4 p-4">
+        <div x-show="!searchBarOpen" @click="searchBarOpen = !searchBarOpen" ><i data-lucide="search" class=" size-10 p-1"></i></div>
+
+        <div x-show="searchBarOpen" @click="searchBarOpen = !searchBarOpen">
+            <i data-lucide="x"
+               class=" size-10 p-1"></i>
+        </div>
+
+        <div class="bg-white shadow-md fixed left-0 top-16 right-0 p-2" x-show="searchBarOpen" @click.outside="searchBarOpen = false" x-cloak x-transition>
+            <form action="{{ route('welcome') }}" method="get"
+                  class="flex gap-2 container  mx-auto">
+                <input type="text" placeholder="Pesquisar...." name="q" value="{{ request()->has('q') ? request()->string('q') : '' }}" class="w-full px-2 py-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"/>
+                <button type="submit" class="bg-red-500 p-1 rounded-lg "><i data-lucide="search"
+                                                                            class="text-white size-10 p-1"></i></button>
+            </form>
+        </div>
+
+        <nav x-show="mobileMenuOpen" @click.outside="mobileMenuOpen = false" x-cloak x-transition
+             class=" fixed left-0 top-16 right-0 shadow-md bg-white flex flex-col gap-4 p-4">
             <a href="{{ route('welcome') }}" class="inline-flex justify-center items-center py-3 px-6 w-full">Página
                 Inicial</a>
             <a href="{{ route('contacts') }}"

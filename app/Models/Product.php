@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Http\UploadedFile;
 
 class Product extends Model
 {
@@ -12,5 +13,14 @@ class Product extends Model
     public function files(): HasMany
     {
         return $this->hasMany(File::class);
+    }
+
+    public function coverFile()
+    {
+        return $this->hasOne(File::class)->where('cover', true)->withDefault(function ($file, $product) {
+            /** @var Product $product */
+            $fallback = $product->files()->oldest()->first();
+            return $fallback ? $fallback->getAttributes() : ['path' => 'no-image.png'];
+        });
     }
 }

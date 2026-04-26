@@ -9,8 +9,22 @@ use Inertia\Inertia;
 
 class WelcomeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return view('welcome', ['products' => Product::all()]);
+        $query = Product::query()->where('visible', '=', true);
+
+        if ($request->has('q')) {
+            $searchTerm = '%' . $request->string('q') . '%';
+
+            $query->where(function ($q) use ($searchTerm) {
+                $q->where('name', 'like', $searchTerm)
+                    ->orWhere('description', 'like', $searchTerm)
+                    ->orWhere('price', 'like', $searchTerm);
+            });
+        }
+
+        $products = $query->with('coverFile')->get();
+
+        return view('welcome', ['products' => $products, 'q' => $request->string('q')]);
     }
 }
