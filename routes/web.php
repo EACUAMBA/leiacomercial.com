@@ -5,6 +5,7 @@ use App\Http\Controllers\BackOffice\LoginBackOfficeController;
 use App\Http\Controllers\BackOffice\LogoutBackOfficeController;
 use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\FaqController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ShoppingCartController;
 use App\Http\Controllers\WelcomeController;
@@ -13,7 +14,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
 Route::get('/produto/{slug}', [ProductController::class, 'show'])->name('product.show');
-Route::get('/login', [\App\Http\Controllers\LoginController::class, 'create'])->name('login');
+Route::get('/login', [LoginController::class, 'create'])->name('login');
+Route::post('/login', [LoginController::class, 'store']);
 Route::get('/contactos', [ContactsController::class, 'create'])->name('contacts');
 Route::get('/faq', [FaqController::class, 'create'])->name('faq');
 Route::get('/carinho-de-compras', [ShoppingCartController::class, 'create'])->name('shopping-cart');

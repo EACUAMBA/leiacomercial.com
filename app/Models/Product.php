@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 
 class Product extends Model
 {
@@ -17,10 +18,21 @@ class Product extends Model
 
     public function coverFile()
     {
-        return $this->hasOne(File::class)->where('cover', true)->withDefault(function ($file, $product) {
+        return $this->hasOne(File::class)->where('cover', true)
+            ->withDefault(function ($file, $product) {
             /** @var Product $product */
             $fallback = $product->files()->oldest()->first();
             return $fallback ? $fallback->getAttributes() : ['path' => 'no-image.png'];
         });
+    }
+
+    public function getCoverPathAttribute()
+    {
+        $file = $this->coverFile;
+        if ($file && Storage::disk('public')->exists($file->path)) {
+            return $file->path;
+        }
+
+        return "no-image.png";
     }
 }

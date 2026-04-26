@@ -1,6 +1,6 @@
 @php use Illuminate\Support\Facades\Storage; @endphp
 <a href="{{ route('product.show', ['slug'=> $product->slug]) }}" class="bg-white shadow-xs rounded p-2 max-w-75">
-    <img src="{{ Storage::url($product->coverFile->path) }}"
+    <img src="{{ Storage::url($product->cover_path) }}"
          alt="Imagem de {{ $product->name }}" class="w-full object-cover object-center aspect-square">
 
     <div class="mt-2 flex flex-col gap-1">

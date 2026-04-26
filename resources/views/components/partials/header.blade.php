@@ -29,7 +29,7 @@
         <div class="bg-white shadow-md fixed left-0 top-16 right-0 p-2" x-show="searchBarOpen" @click.outside="searchBarOpen = false" x-cloak x-transition>
             <form action="{{ route('welcome') }}" method="get"
                   class="flex gap-2 container  mx-auto">
-                <input type="text" placeholder="Pesquisar...." name="q" value="{{ request()->has('q') ? request()->string('q') : '' }}" class="w-full px-2 py-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"/>
+                <input type="text" placeholder="Pesquisar...." name="q" value="{{ request()->has('q') ? request()->string('q') : '' }}" class="w-full px-2 py-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition"/>
                 <button type="submit" class="bg-red-500 p-1 rounded-lg "><i data-lucide="search"
                                                                             class="text-white size-10 p-1"></i></button>
             </form>
