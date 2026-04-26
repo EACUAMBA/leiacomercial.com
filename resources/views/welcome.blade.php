@@ -9,7 +9,7 @@
         @if($products->isEmpty())
             <h1 class="text-3xl mb-2">Sentimos muito...</h1>
             <div class="flex flex-col flex-wrap justify-center items-center gap-2">
-            <p class="text-center">Não encontramos produtos relacionados com termo </p>
+            <p class="text-center">Não encontramos produtos relacionado com termo </p>
                 <span class="font-medium bg-gray-300 text-gray-600 px-2 py-1 rounded-lg">{{ $q }}</span>
             </div>
 
